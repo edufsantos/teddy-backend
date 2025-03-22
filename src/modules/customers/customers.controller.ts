@@ -1,10 +1,13 @@
 import { CustomLogger } from '@common/loggers/custom.logger';
-import { Body, Controller, Get, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { plainToClass, plainToInstance } from 'class-transformer';
 import { CreateCustomerCommand } from './commands/create-customer/create-customer.command';
 import { GetCustomerQuery } from './queries/get-customer/get-customers.queries';
 import { GetCustomersQuery } from './queries/get-customers/get-customers.queries';
+import { UpdateCustomerDto } from './commands/update-customer/update-customer.dto';
+import { CreateCustomerDto } from './commands/create-customer/create-customer.dto';
+import { UpdateCustomerCommand } from './commands/update-customer/update-customer.command';
 
 @Controller('customers')
 export class CustomersController {
@@ -51,10 +54,17 @@ export class CustomersController {
   }
 
   @Post()
-  async createCustomer(@Body() customerData: CreateCustomerCommand) {
-    console.log({ customerData });
-
+  async createCustomer(@Body() customerData: CreateCustomerDto) {
     const data = plainToInstance(CreateCustomerCommand, customerData);
+    return await this.commandBus.execute(data);
+  }
+
+  @Patch(':id')
+  async updateCustomer(@Param('id') id: string, @Body() customerData: UpdateCustomerDto) {
+    const data = plainToInstance(UpdateCustomerCommand, {
+      id: +id,
+      ...customerData,
+    });
     return await this.commandBus.execute(data);
   }
 }

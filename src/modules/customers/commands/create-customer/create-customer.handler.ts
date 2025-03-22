@@ -1,20 +1,13 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { CreateCustomerCommand } from './create-customer.command';
-import { CreateCustomerDto } from './create-customer.dto';
-import { CustomLogger } from '@common/loggers/custom.logger';
 import { CustomersRepository } from 'src/infra/database/repositories/customers/customers.respository';
+import { CreateCustomerCommand } from './create-customer.command';
 
 @CommandHandler(CreateCustomerCommand)
-export class CreateCustomerHandler implements ICommandHandler<CreateCustomerCommand, CreateCustomerDto> {
-  constructor(
-    private readonly customerRepo: CustomersRepository,
-    private readonly logger: CustomLogger,
-  ) {}
+export class CreateCustomerHandler implements ICommandHandler<CreateCustomerCommand, number> {
+  constructor(private readonly customerRepo: CustomersRepository) {}
 
-  async execute(command: CreateCustomerCommand): Promise<CreateCustomerDto> {
+  async execute(command: CreateCustomerCommand): Promise<number> {
     const result = await this.customerRepo.createCustomer({ name: command.name });
-    return {
-      id: result.id,
-    };
+    return result.id;
   }
 }

@@ -1,8 +1,9 @@
 import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
-export class CreateCustomerCommand {
-  id?: string;
+export class UpdateCustomerCommand {
+  @Expose()
+  id: number;
 
   @Expose()
   name: string;

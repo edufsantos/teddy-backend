@@ -1,15 +1,15 @@
 import { env_configuration } from '@common/config/env';
-import { HttpExceptionFilter } from '@common/decorators/http-exception.filter';
 import { LoggerModule } from '@common/loggers/custom-logger.module';
 import { CustomLoggerProvider } from '@common/loggers/custom-logger.provider';
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_FILTER } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { DatabaseModule } from './infra/database/database.module';
-import { CustomersModule } from './modules/customers/customers.module';
 import { RepositoryModule } from './infra/database/repositories/repositories.module';
+import { CustomersModule } from './modules/customers/customers.module';
+import { HttpExceptionFilter } from '@common/decorators/http-exception.filter';
 
 @Module({
   imports: [
@@ -20,7 +20,18 @@ import { RepositoryModule } from './infra/database/repositories/repositories.mod
     RepositoryModule,
   ],
   controllers: [AppController],
-  providers: [CustomLoggerProvider, AppService],
+  providers: [
+    CustomLoggerProvider,
+    AppService,
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
   exports: [CustomLoggerProvider],
 })
 export class AppModule {}
