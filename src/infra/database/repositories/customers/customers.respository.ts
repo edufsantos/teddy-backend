@@ -14,7 +14,7 @@ export class CustomersRepository implements ICustomersRepository {
     private readonly logger: CustomLogger,
   ) {}
 
-  async getAllCustomers(query: GetCustomersQuery) {
+  async findAll(query: GetCustomersQuery) {
     const repo = await this.dataSource.getRepository(Customer);
     this.logger.debug(`Querying customers with search: ${JSON.stringify(query)}`);
 
@@ -27,14 +27,14 @@ export class CustomersRepository implements ICustomersRepository {
     return { customers, total };
   }
 
-  async getCustomerById(id: number): Promise<Customer | null> {
+  async findById(id: number): Promise<Customer | null> {
     const repo = await this.dataSource.getRepository(Customer);
     this.logger.debug(`Fetching customer with ID: ${id}`);
     const customer = await repo.findOne({ where: { id } });
     return customer || null;
   }
 
-  async createCustomer(customerData: CreateCustomerCommand) {
+  async create(customerData: CreateCustomerCommand) {
     const repo = await this.dataSource.getRepository(Customer);
     const save = await repo.save({
       name: customerData.name,
@@ -42,7 +42,7 @@ export class CustomersRepository implements ICustomersRepository {
     return save;
   }
 
-  async updateCustomer(id: number, customerData: Partial<CreateCustomerCommand>): Promise<Customer> {
+  async update(id: number, customerData: Partial<CreateCustomerCommand>): Promise<Customer> {
     const repo = await this.dataSource.getRepository(Customer);
     this.logger.debug(`Updating customer with ID: ${id} and data: ${JSON.stringify(customerData)}`);
 
@@ -56,7 +56,11 @@ export class CustomersRepository implements ICustomersRepository {
     return updatedCustomer;
   }
 
-  deleteCustomer(id: number): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: number): Promise<void> {
+    const repo = await this.dataSource.getRepository(Customer);
+    const customer = await repo.delete({ id });
+    if (!customer) {
+      throw new Error(`Customer with ID ${id} not found`);
+    }
   }
 }

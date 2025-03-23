@@ -27,12 +27,14 @@
     ]
   },
   "dependencies": {
+    "@nestjs/bull": "^11.0.2",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/cqrs": "^11.0.2",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
+    "bull": "^4.16.5",
     "class": "^0.1.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",

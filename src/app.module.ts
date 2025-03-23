@@ -10,6 +10,8 @@ import { DatabaseModule } from './infra/database/database.module';
 import { RepositoryModule } from './infra/database/repositories/repositories.module';
 import { CustomersModule } from './modules/customers/customers.module';
 import { HttpExceptionFilter } from '@common/decorators/http-exception.filter';
+import { CommonModule } from '@common/common.module';
+import { QueueModule } from './infra/queue/queue.module';
 
 @Module({
   imports: [
@@ -18,10 +20,11 @@ import { HttpExceptionFilter } from '@common/decorators/http-exception.filter';
     CustomersModule,
     DatabaseModule,
     RepositoryModule,
+    QueueModule,
   ],
   controllers: [AppController],
   providers: [
-    CustomLoggerProvider,
+    CommonModule,
     AppService,
     {
       provide: APP_PIPE,
@@ -32,6 +35,6 @@ import { HttpExceptionFilter } from '@common/decorators/http-exception.filter';
       useClass: HttpExceptionFilter,
     },
   ],
-  exports: [CustomLoggerProvider],
+  exports: [CommonModule],
 })
 export class AppModule {}

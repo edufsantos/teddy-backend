@@ -15,7 +15,7 @@ export class GetCustomersHandler implements IQueryHandler<GetCustomersQuery, Cus
     this.logger.debug(`Querying customers with search: ${JSON.stringify(query)}`);
 
     const { skip, take } = query;
-    const result = await this.customersRepo.getAllCustomers(query);
+    const result = await this.customersRepo.findAll(query);
 
     return {
       rows: result.customers,

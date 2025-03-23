@@ -18,7 +18,6 @@ async function bootstrap() {
       ],
     }),
   });
-
   const customLogger = app.get(CustomLogger);
   app.useLogger(customLogger);
 

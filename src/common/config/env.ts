@@ -39,6 +39,10 @@ export class Env {
   @IsString()
   @IsNotEmpty()
   LOG_LEVEL: string;
+
+  @IsString()
+  @IsNotEmpty()
+  REDIS_URL: string;
 }
 
 export const env: Env = {
@@ -52,6 +56,7 @@ export const env: Env = {
   DATABASE_NAME: process.env.DATABASE_NAME,
   DATABASE_TYPE: process.env.DATABASE_TYPE,
   LOG_LEVEL: process.env.LOG_LEVEL,
+  REDIS_URL: process.env.REDIS_URL,
 };
 
 export const env_configuration = () => ({

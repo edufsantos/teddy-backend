@@ -3,13 +3,13 @@ import { GetCustomersQuery } from 'src/modules/customers/queries/get-customers/g
 import { Customer } from '../../entities/cutomer.entity';
 
 export abstract class ICustomersRepository {
-  abstract getAllCustomers(query: GetCustomersQuery): Promise<{ customers: Customer[]; total: number }>;
+  abstract findAll(query: GetCustomersQuery): Promise<{ customers: Customer[]; total: number }>;
 
-  abstract getCustomerById(id: number): Promise<Customer | null>;
+  abstract findById(id: number): Promise<Customer | null>;
 
-  abstract createCustomer(customerData: CreateCustomerCommand): Promise<Customer>;
+  abstract create(customerData: CreateCustomerCommand): Promise<Customer>;
 
-  abstract updateCustomer(id: number, customerData: Partial<CreateCustomerCommand>): Promise<Customer>;
+  abstract update(id: number, customerData: Partial<CreateCustomerCommand>): Promise<Customer>;
 
-  abstract deleteCustomer(id: number): Promise<void>;
+  abstract delete(id: number): Promise<void>;
 }

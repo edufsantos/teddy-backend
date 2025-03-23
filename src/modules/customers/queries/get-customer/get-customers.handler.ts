@@ -15,7 +15,7 @@ export class GetCustomerHandler implements IQueryHandler<GetCustomerQuery, Custo
   ) {}
 
   async execute(query: GetCustomerQuery): Promise<CustomerDto> {
-    const result = await this.customerRepo.getCustomerById(query.id);
+    const result = await this.customerRepo.findById(query.id);
     if (!result) {
       this.logger.error(`Customer with id ${query.id} not found`);
       throw new NotFoundException(`Customer with id ${query.id} not found`);

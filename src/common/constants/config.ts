@@ -9,3 +9,11 @@ export enum LogConstants {
   ERROR = 'error',
   VERBOSE = 'verbose',
 }
+
+export enum QueueProcessorConstants {
+  CREATE_CUSTOMERS = 'CREATE_CUSTOMERS',
+}
+
+export enum QueueProcessConstants {
+  CREATE_CUSTOMERS_SEND_EMAIL = 'CREATE_CUSTOMERS_SEND_EMAIL',
+}

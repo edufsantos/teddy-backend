@@ -20,7 +20,6 @@ export class CustomersController {
   @Get('')
   async getCustomers(@Query() queryParams: GetCustomersQuery) {
     const query = plainToClass(GetCustomersQuery, queryParams);
-    console.log({ query });
 
     const result = await this.queryBus
       .execute(query)
