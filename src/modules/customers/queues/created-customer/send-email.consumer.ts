@@ -11,8 +11,6 @@ export class CreatedCustomerSendEmailConsumer {
   @Process(QueueProcessConstants.CREATE_CUSTOMERS_SEND_EMAIL)
   processPayment(job: Job<SendEmailProcessorDto>) {
     const data = job.data;
-    console.log(`Attempt #${job.attemptsMade}`);
-
     // Simulate a failure on the first attempt
     if (job.attemptsMade === 0) {
       throw new Error('Failed on first attempt');

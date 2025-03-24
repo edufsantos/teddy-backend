@@ -11,5 +11,5 @@ export abstract class ICustomersRepository {
 
   abstract update(id: number, customerData: Partial<CreateCustomerCommand>): Promise<Customer>;
 
-  abstract delete(id: number): Promise<void>;
+  abstract delete(id: number): Promise<number>;
 }

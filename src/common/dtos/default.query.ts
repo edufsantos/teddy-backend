@@ -4,7 +4,6 @@ import { Exclude, Expose, Transform } from 'class-transformer';
 export class DefaultQuery {
   @Expose()
   @Transform(({ value }) => {
-    console.log({ value });
     return Number(value || 0);
   })
   skip: number;

@@ -1,5 +1,5 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { CustomersRepository } from 'src/infra/database/repositories/customers/customers.respository';
+import { CustomersRepository } from '@infra/database/repositories/customers/customers.respository';
 import { CreateCustomerCommand } from './create-customer.command';
 import { CustomerCreatedEvent } from '../../events/customer-created/customer-created.event';
 

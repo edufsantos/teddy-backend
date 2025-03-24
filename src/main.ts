@@ -7,6 +7,7 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { CustomLogger } from '@common/loggers/custom.logger';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilderFactory } from '@common/config/document-builder';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -20,7 +21,6 @@ async function bootstrap() {
   });
   const customLogger = app.get(CustomLogger);
   app.useLogger(customLogger);
-
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -33,8 +33,7 @@ async function bootstrap() {
       },
     }),
   );
-  useContainer(app.select(AppModule), { fallbackOnErrors: true });
-
+  new DocumentBuilderFactory(app).execute();
   app.enableCors({
     origin: (origin, callback) => {
       const allowedOrigins = []; // Use this array to define allowed origins
@@ -59,7 +58,7 @@ async function bootstrap() {
     exposedHeaders: ['Content-Length', 'Content-Range', 'X-Content-Range'],
     maxAge: 86400,
   });
-
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

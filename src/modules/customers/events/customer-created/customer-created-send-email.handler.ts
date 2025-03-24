@@ -2,7 +2,7 @@ import { QueueProcessConstants, QueueProcessorConstants } from '@common/constant
 import { InjectQueue } from '@nestjs/bull';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { Queue } from 'bull';
-import { CustomersRepository } from 'src/infra/database/repositories/customers/customers.respository';
+import { CustomersRepository } from '@infra/database/repositories/customers/customers.respository';
 import { SendEmailProcessorDto } from '../../queues/created-customer/send-email-processor.dto';
 import { CustomerCreatedEvent } from './customer-created.event';
 

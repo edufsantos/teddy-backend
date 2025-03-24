@@ -1,6 +1,6 @@
 import { CustomLogger } from '@common/loggers/custom.logger';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { CustomersRepository } from 'src/infra/database/repositories/customers/customers.respository';
+import { CustomersRepository } from '@infra/database/repositories/customers/customers.respository';
 import { Customers } from './get-customers.dto';
 import { GetCustomersQuery } from './get-customers.queries';
 
