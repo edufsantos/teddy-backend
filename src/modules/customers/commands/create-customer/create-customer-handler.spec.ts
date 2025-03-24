@@ -42,6 +42,8 @@ describe('CreateCustomerHandler', () => {
   it('should create a customer and publish an event', async () => {
     const mockCustomer = new Customer();
     mockCustomer.name = 'Eduardo - Tech Lead';
+    mockCustomer.salary = 1000;
+    mockCustomer.company_price = 1000;
     mockCustomer.id = 1;
 
     jest.spyOn(customersRepo, 'create').mockResolvedValue(mockCustomer);
@@ -62,6 +64,8 @@ describe('CreateCustomerHandler', () => {
     const mockCustomer = new Customer();
     mockCustomer.name = 'Carol - Tech Lead';
     mockCustomer.id = null;
+    mockCustomer.salary = null;
+    mockCustomer.company_price = null;
 
     jest.spyOn(customersRepo, 'create').mockResolvedValue(mockCustomer);
 

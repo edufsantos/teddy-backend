@@ -11,7 +11,11 @@ export class UpdateCustomerHandler implements ICommandHandler<UpdateCustomerComm
   ) {}
 
   async execute(command: UpdateCustomerCommand): Promise<number> {
-    const result = await this.customerRepo.update(command.id, { name: command.name });
+    const result = await this.customerRepo.update(command.id, {
+      name: command.name,
+      company_price: command.company_price,
+      salary: command.salary,
+    });
     if (result.id) {
       await this.eventBus.publish(new CustomerCreatedEvent(result.id));
     }

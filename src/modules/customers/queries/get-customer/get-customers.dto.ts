@@ -7,4 +7,10 @@ export class CustomerDto {
 
   @Expose()
   name: string;
+
+  @Expose()
+  salary: number;
+
+  @Expose()
+  company_price: number;
 }

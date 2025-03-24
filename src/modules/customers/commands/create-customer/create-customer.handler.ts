@@ -11,7 +11,11 @@ export class CreateCustomerHandler implements ICommandHandler<CreateCustomerComm
   ) {}
 
   async execute(command: CreateCustomerCommand): Promise<number> {
-    const result = await this.customerRepo.create({ name: command.name });
+    const result = await this.customerRepo.create({
+      name: command.name,
+      company_price: command.company_price,
+      salary: command.salary,
+    });
     if (result.id) {
       await this.eventBus.publish(new CustomerCreatedEvent(result.id));
     }

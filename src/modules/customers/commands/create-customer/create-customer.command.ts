@@ -6,4 +6,10 @@ export class CreateCustomerCommand {
 
   @Expose()
   name: string;
+
+  @Expose()
+  salary: number;
+
+  @Expose()
+  company_price: number;
 }

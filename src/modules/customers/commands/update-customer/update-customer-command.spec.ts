@@ -43,6 +43,8 @@ describe('UpdateCustomerHandler', () => {
     const updateResult = new Customer();
     updateResult.id = 1;
     updateResult.name = 'Updated Name';
+    updateResult.company_price = 1000;
+    updateResult.salary = 1000;
 
     const command = new UpdateCustomerCommand();
     command.id = updateResult.id;
@@ -60,6 +62,8 @@ describe('UpdateCustomerHandler', () => {
     const updateResult = new Customer();
     updateResult.id = 2;
     updateResult.name = 'Updated Name';
+    updateResult.company_price = 1000;
+    updateResult.salary = 1000;
 
     const command = new UpdateCustomerCommand();
     command.id = updateResult.id;
@@ -80,6 +84,8 @@ describe('UpdateCustomerHandler', () => {
     const command = new UpdateCustomerCommand();
     command.id = null;
     command.name = 'Another Name';
+    command.company_price = null;
+    command.salary = null;
 
     jest.spyOn(customerRepo, 'update').mockResolvedValue(updateResult);
 

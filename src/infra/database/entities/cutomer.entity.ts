@@ -8,4 +8,13 @@ export class Customer extends EntityBase {
 
   @Column({ type: 'varchar', length: 255 })
   name: string;
+
+  @Column({ type: 'float', default: 0, nullable: true })
+  salary: number;
+
+  @Column({ type: 'float', default: 0, nullable: true })
+  company_price: number;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  created_at: Date;
 }

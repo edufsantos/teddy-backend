@@ -38,6 +38,8 @@ export class CustomersRepository implements ICustomersRepository {
     const repo = await this.dataSource.getRepository(Customer);
     const save = await repo.save({
       name: customerData.name,
+      salary: customerData.salary,
+      company_price: customerData.company_price,
     });
     return save;
   }

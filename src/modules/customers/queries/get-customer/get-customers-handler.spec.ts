@@ -4,6 +4,7 @@ import { CustomersRepository } from '@infra/database/repositories/customers/cust
 import { CustomLogger } from '@common/loggers/custom.logger';
 import { NotFoundException } from '@nestjs/common';
 import { GetCustomerHandler } from './get-customers.handler';
+import { Customer } from '@infra/database/entities/cutomer.entity';
 
 describe('GetCustomerHandler', () => {
   let handler: GetCustomerHandler;
@@ -16,7 +17,13 @@ describe('GetCustomerHandler', () => {
         {
           provide: CustomersRepository,
           useValue: {
-            findById: jest.fn().mockImplementation((id) => (id === 1 ? { id: 1, name: 'Eduardo - Tech Lead' } : null)),
+            findById: jest
+              .fn()
+              .mockImplementation((id) =>
+                id === 1
+                  ? ({ id: 1, name: 'Eduardo - Tech Lead', salary: 1000, company_price: 1000 } as Customer)
+                  : null,
+              ),
           },
         },
         {
@@ -43,7 +50,7 @@ describe('GetCustomerHandler', () => {
 
     const result = await handler.execute(query);
 
-    expect(result).toEqual({ id: 1, name: 'Eduardo - Tech Lead' });
+    expect(result).toEqual({ id: 1, name: 'Eduardo - Tech Lead', salary: 1000, company_price: 1000 });
     expect(customerRepo.findById).toHaveBeenCalledWith(1);
   });
 

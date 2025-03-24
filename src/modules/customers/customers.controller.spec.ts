@@ -74,7 +74,7 @@ describe('CustomersController', () => {
 
   describe('createCustomer', () => {
     it('should create a new customer', async () => {
-      const dto: CreateCustomerDto = { name: 'Eduardo - Tech Lead' };
+      const dto: CreateCustomerDto = { name: 'Eduardo - Tech Lead', company_price: 1000, salary: 1000 };
       const mockResponse = { id: 1, ...dto };
       jest.spyOn(commandBus, 'execute').mockResolvedValue(mockResponse);
 

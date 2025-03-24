@@ -13,7 +13,38 @@ export function ApiGetCustomers() {
     ApiQuery({ name: 'skip', required: false, type: Number, description: 'Número de itens a pular' }),
     ApiQuery({ name: 'take', required: false, type: Number, description: 'Número de itens a retornar' }),
     ApiQuery({ name: 'name', required: false, type: String, description: 'Nome do cliente para filtro' }),
-    ApiResponse({ status: 200, description: 'Lista de clientes retornada com sucesso.' }),
+    ApiResponse({
+      status: 200,
+      description: 'Lista de clientes retornada com sucesso.',
+      schema: {
+        type: 'object',
+        properties: {
+          rows: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                id: { type: 'number', description: 'ID do cliente' },
+                name: { type: 'string', description: 'Nome do cliente' },
+                salary: { type: 'number', description: 'Salário do cliente' },
+                company_price: { type: 'number', description: 'Preço da empresa associado ao cliente' },
+                created_at: { type: 'string', format: 'date-time', description: 'Data de criação' },
+              },
+            },
+          },
+          count: { type: 'number', description: 'Total de clientes encontrados' },
+          skip: { type: 'number', description: 'Número de itens pulados' },
+          take: { type: 'number', description: 'Número de itens retornados' },
+        },
+      },
+    }),
+    ApiResponse({ status: 400, description: 'Erro ao listar clientes.' }),
+    ApiResponse({ status: 404, description: 'Nenhum cliente encontrado.' }),
+    ApiResponse({ status: 500, description: 'Erro interno do servidor.' }),
+    ApiResponse({
+      status: 401,
+      description: 'Não autorizado.',
+    }),
   );
 }
 
@@ -21,8 +52,27 @@ export function ApiGetCustomer() {
   return applyDecorators(
     ApiOperation({ summary: 'Obter um cliente pelo ID' }),
     ApiParam({ name: 'id', required: true, type: Number, description: 'ID do cliente' }),
-    ApiResponse({ status: 200, description: 'Cliente retornado com sucesso.' }),
+    ApiResponse({
+      status: 200,
+      description: 'Cliente encontrado com sucesso.',
+      schema: {
+        type: 'object',
+        properties: {
+          id: { type: 'number', description: 'ID do cliente' },
+          name: { type: 'string', description: 'Nome do cliente' },
+          salary: { type: 'number', description: 'Salário do cliente' },
+          company_price: { type: 'number', description: 'Preço da empresa associado ao cliente' },
+          created_at: { type: 'string', format: 'date-time', description: 'Data de criação' },
+        },
+      },
+    }),
     ApiResponse({ status: 404, description: 'Cliente não encontrado.' }),
+    ApiResponse({ status: 400, description: 'Erro ao obter cliente.' }),
+    ApiResponse({ status: 500, description: 'Erro interno do servidor.' }),
+    ApiResponse({
+      status: 401,
+      description: 'Não autorizado.',
+    }),
   );
 }
 
