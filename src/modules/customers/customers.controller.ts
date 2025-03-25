@@ -84,6 +84,7 @@ export class CustomersController {
   @ApiDeleteCustomer()
   async deleteCustomer(@Param('id') id: string) {
     const data = plainToInstance(DeleteCustomerCommand, { id: +id });
+
     return await this.commandBus.execute(data);
   }
 }

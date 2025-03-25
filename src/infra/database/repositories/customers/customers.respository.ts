@@ -61,6 +61,7 @@ export class CustomersRepository implements ICustomersRepository {
   async delete(id: number): Promise<number> {
     const repo = await this.dataSource.getRepository(Customer);
     const customer = await repo.delete({ id });
+
     if (!customer) {
       throw new Error(`Customer with ID ${id} not found`);
     }
